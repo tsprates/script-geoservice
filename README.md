@@ -8,8 +8,8 @@ Arquivo de configuração necessário para rodar o script.
 * Obs.: para especificar o caminho do arquivo deve-se utilizar a barra invertida '/'. 
 * Ex: c:\users\thiago\desktop\centroide_ud_BH2.csv deve ficar: c:/users/thiago/desktop/centroide_ud_BH2.csv
 
-inputfile=c:/users/thiago/desktop/qryUDH_BH.csv
-outputfile=c:/users/thiago/desktop/s.csv
+inputfile=c:/users/username/desktop/qryUDH_BH.csv
+outputfile=c:/users/username/desktop/s.csv
 
 
 * Delimitador do arquivo csv para diferenciar as colunas.
@@ -35,6 +35,21 @@ geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=f
 * Lista de colunas (separadas pelo valor do delimiter) do geoservice, sempre comece '/' (root).
 * Obs.: valores retornados pelo geoservice podem ser navegados por '/', através de XPath.
 * Ex: Response do servidor '&lt;response&gt;&lt;a&gt;something&lt;/a&gt;&lt;b&gt;another thing&lt;/b&gt;&lt;response&gt;'
-* para recuperar o valor dentro da tag '<a>' use '/response/a'.
+* para recuperar o valor dentro da tag 'a' use '/response/a'.
 
 outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
+
+
+
+------
+
+
+inputfile=c:/users/username/desktop/qryUDH_BH.csv
+outputfile=c:/users/username/desktop/s.csv
+delimiter=,
+text_delimiter=\"
+inputfile_col_lat=lat
+inputfile_col_lng=long
+geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
+outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
+
