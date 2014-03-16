@@ -20,11 +20,11 @@ Arquivo de configuração necessário para rodar o script.
   * delimiter=,
   * text_delimiter=\"
  
- * Colunas do arquivo de entrada que representam a 'latitude' e 'longitude' (obrigatório) necessários para a consulta no serviço. Ver [geoservice].
+ * Colunas do arquivo de entrada que representam a 'latitude' e 'longitude' (obrigatório). Ver [geoservice].
   * inputfile_col_lat=lat
   * inputfile_col_lng=long
  
- * Serviço de geocode, deve-se usar %s para inidicar os valores que serão substituidos pelos valores de latitude e longitude, nessa ordem. São definidos pelas colunas: inputfile_column_lat e inputfile_column_lng.
+ * Serviço de geocode, deve-se usar %s para inidicar os valores dos parâmetros de latitude e longitude, nessa ordem, necessário pela url do serviço. São definidos pelas colunas: [inputfile_column_lat] e [inputfile_column_lng].
   * geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
  
  * Lista de colunas (separadas pelo valor do delimiter). Para pegar a coluna do arquivo de entrada, defina o nome da coluna. Caso queira valor de um geoservice utilizar XPath. Obs.: valores retornados pelo geoservice são navegados através de XPath. Ex: Resposta do servidor: '&lt;response&gt;&lt;a&gt;something&lt;/a&gt;&lt;b&gt;another thing&lt;/b&gt;&lt;response&gt;' para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
