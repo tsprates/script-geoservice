@@ -4,6 +4,12 @@ script-geoservice
 Arquivo de configuração necessário para rodar o script.
 -----------------------------------------------------------
 
+
+Uso:
+
+ java -jar script.jar config.properties
+
+
 * Arquivos de entrada e saída.
 * Obs.: para especificar o caminho do arquivo deve-se utilizar a barra invertida '/'. 
 * Ex: c:\users\thiago\desktop\centroide_ud_BH2.csv deve ficar: c:/users/thiago/desktop/centroide_ud_BH2.csv
