@@ -48,12 +48,19 @@ outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/G
 * Arquivo final:
 
 
-**inputfile=c:/users/username/desktop/qryUDH_BH.csv
-**outputfile=c:/users/username/desktop/s.csv
-**delimiter=,
-**text_delimiter=\"
-**inputfile_col_lat=lat
-**inputfile_col_lng=long
-**geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
-**outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
+inputfile=c:/users/username/desktop/qryUDH_BH.csv
+
+outputfile=c:/users/username/desktop/s.csv
+
+delimiter=,
+
+text_delimiter=\"
+
+inputfile_col_lat=lat
+
+inputfile_col_lng=long
+
+geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
+
+outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
 
