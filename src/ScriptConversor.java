@@ -79,18 +79,18 @@ public class ScriptConversor implements Runnable {
 	 * 
 	 */
 	private static void mostraAjuda() {
-		System.out.println(" Exemplo de arquivo de configuração:					");
-		System.out.println(" *config.properties										");
+		System.out.println(" Exemplo de arquivo de configuração:                    ");
+		System.out.println(" *config.properties                                     ");
 		System.out.println("========================================================");
 		System.out.println("														");
-		System.out.println("inputfile=/caminho/para/arquivo/entrada.csv				");
-		System.out.println("outputfile=/caminho/para/arquivo/saida.csv				");
-		System.out.println("delimiter=,												");
-		System.out.println("text_delimiter=\"										");
-		System.out.println("inputfile_col_lat=lat									");
-		System.out.println("inputfile_col_lng=lng									");
-		System.out.println("geoservice=http://api.geo.org/find?lat=%s&lng=%s		");
-		System.out.println("outputfile_cols=A,B,C,D									");
+		System.out.println("inputfile=/caminho/para/arquivo/entrada.csv             ");
+		System.out.println("outputfile=/caminho/para/arquivo/saida.csv              ");
+		System.out.println("delimiter=,                                             ");
+		System.out.println("text_delimiter=\"                                       ");
+		System.out.println("inputfile_col_lat=lat                                   ");
+		System.out.println("inputfile_col_lng=lng                                   ");
+		System.out.println("geoservice=http://api.geo.org/find?lat=%s&lng=%s        ");
+		System.out.println("outputfile_cols=A,B,C,D                                 ");
 	}
 
 	/**
@@ -201,11 +201,10 @@ public class ScriptConversor implements Runnable {
 				}
 
 				// nomes das colunas necessários para identificar colunas
-				// requiridas no arquivo de configurações
+				// necessárias no arquivo de configurações
 				if (jaExisteNomesDasColunas == false) {
 					throw new RuntimeException("[Erro] Não foi possível identificar as colunas do arquivo.");
 				}
-				
 				
 				if (indiceColunas.get(inputfile_col_lat) == null || indiceColunas.get(inputfile_col_lng) == null) {
 					throw new RuntimeException("[Erro] Erro ao especificar colunas de latitude e longitude do arquivo de configuração, "
@@ -250,6 +249,7 @@ public class ScriptConversor implements Runnable {
 						colunaAtual = colunasDaLinhaAtual[ indiceColunas.get(colunaProcurada) ];
 					} else {
 						// filtra valor retornado pelo xml do geoservice
+						// usar XPath para especificar caminho no xml
 						colunaAtual = retornaTag(respostaDoServidor, colunaProcurada);
 					}
 					
@@ -263,6 +263,7 @@ public class ScriptConversor implements Runnable {
 					linhaSaida.append( colunaAtual + delimeter );
 				}
 				
+				// escreve registro em arquivo de saida
 				escritorArqSaida.println(retiraUltimoDelimiter(linhaSaida.toString()));
 				
 				// minimiza esforço do servidor a cada 100 linhas lidas
@@ -284,7 +285,7 @@ public class ScriptConversor implements Runnable {
 	
 	
 	/**
-	 * A partir de uma string de url para um serviço ler o conteúdo xml.
+	 * A partir de uma url do geoservice ler o conteúdo xml.
 	 * 
 	 * @param url Url do georservice.
 	 * @return
@@ -330,23 +331,17 @@ public class ScriptConversor implements Runnable {
 //		}
 		
 		try {
-			
 			Document document = db.parse( new InputSource(new StringReader(xml)) );
-			
 			XPath xpath = xpathFactory.newXPath();
-			
 			return xpath.evaluate(tag, document);
 		} catch (SAXException | IOException | XPathExpressionException e) {
 			return "";
-		} 
-
-		
-		
-		
+		}
 	}
 
 	/**
-	 * Formata para retirar o último delimiter utilizado pelo arquivo de csv de entrada.
+	 * Formata para retirar o último delimiter 
+	 * utilizado pelo arquivo de csv de entrada.
 	 * 
 	 * @param s 
 	 * @return String
