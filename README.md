@@ -32,8 +32,7 @@ Arquivo de configuração necessário para rodar o script.
 
 
 
-### Arquivo final:
-
+### Exemplo de um arquivo de configuração:
 
  * inputfile=c:/users/username/desktop/qryUDH_BH.csv
  * outputfile=c:/users/username/desktop/s.csv
