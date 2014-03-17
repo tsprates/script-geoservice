@@ -198,8 +198,7 @@ public class ScriptConversor implements Runnable {
 					}
 
 					// escreve cabeçalho arquivo de saída
-					escritorArqSaida.println(props
-							.getProperty("outputfile_cols"));
+					escritorArqSaida.println(outputfile_cols);
 
 					// sabe o nome das colunas do arquivo,
 					// previne não fazer novamente o mapeamento
@@ -229,12 +228,9 @@ public class ScriptConversor implements Runnable {
 				// formata url de requisição do geoservice com a latitude e
 				// longitude da linha atual
 				urlDoGeoService = String.format(Locale.ENGLISH,
-						props.getProperty("geoservice"), ""
-								+ colunasDaLinhaAtual[indiceColunaLat], ""
-								+ colunasDaLinhaAtual[indiceColunaLng]);
-
-				// para acompanhamento no console
-				System.out.println(numLinhasLidas + ") " + urlDoGeoService);
+						props.getProperty("geoservice"), 
+							"" + colunasDaLinhaAtual[indiceColunaLat], 
+							"" + colunasDaLinhaAtual[indiceColunaLng]);
 
 				// requisição no geoservice
 				respostaDoServidor = "";
@@ -271,17 +267,28 @@ public class ScriptConversor implements Runnable {
 								+ text_delimeter;
 					}
 
+					
 					linhaSaida.append(colunaAtual + delimeter);
 				}
+
+				// para acompanhamento no console
+				System.out.println(numLinhasLidas + ". " + urlDoGeoService);
 
 				// escreve registro em arquivo de saida
 				escritorArqSaida.println(retiraUltimoDelimiter(linhaSaida
 						.toString()));
 
-				// minimiza esforço do servidor a cada 100 linhas lidas
+				// minimiza esforço do servidor
 				if ((numLinhasLidas % 50) == 0) {
 					try {
 						Thread.sleep(5000L);
+					} catch (InterruptedException e) {
+					}
+				}
+				
+				if ((numLinhasLidas % 500) == 0) {
+					try {
+						Thread.sleep(10000L);
 					} catch (InterruptedException e) {
 					}
 				}
