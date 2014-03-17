@@ -27,7 +27,7 @@ Arquivo de configuração necessário para rodar o script.
  * Serviço de geocode, deve-se usar %s para inidicar os valores dos parâmetros de latitude e longitude, nessa ordem, necessário pela url do serviço. São definidos pelas colunas: [inputfile_column_lat] e [inputfile_column_lng].
   * geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
  
- * Lista de colunas (separadas pelo valor do delimiter). Para pegar a coluna do arquivo de entrada, defina o nome da coluna. Caso queira valor de um geoservice utilizar XPath. Obs.: valores retornados pelo geoservice são navegados através de XPath. Ex: Resposta do servidor: '&lt;response&gt;&lt;a&gt;something&lt;/a&gt;&lt;b&gt;another thing&lt;/b&gt;&lt;response&gt;' para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
+ * Lista de colunas (separadas por vírgula). Para pegar a coluna do arquivo de entrada, defina o nome da coluna. Caso queira valor de um geoservice utilizar XPath. Obs.: valores retornados pelo geoservice são navegados através de XPath. Ex: Resposta do servidor: '&lt;response&gt;&lt;a&gt;something&lt;/a&gt;&lt;b&gt;another thing&lt;/b&gt;&lt;response&gt;' para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
   * outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
 
 
