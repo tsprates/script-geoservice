@@ -155,7 +155,7 @@ public class ScriptConversor implements Runnable {
 			String linhaAtual;
 			
 			// colunas (propriedades) requeridas pelo cliente no arquivo de configuração
-			String arrColunasConfig[] = outputfile_cols.split(",");
+			String arrColunasConfig[] = outputfile_cols.split(delimeter);
 			
 			// mapeamento das colunas
 			Map<String, Integer> indiceColunas = new HashMap<String, Integer>();
@@ -267,7 +267,7 @@ public class ScriptConversor implements Runnable {
 				escritorArqSaida.println(retiraUltimoDelimiter(linhaSaida.toString()));
 				
 				// minimiza esforço do servidor a cada 100 linhas lidas
-				if ((numLinhasLidas % 100) == 0) { try { Thread.sleep(350L); } catch (InterruptedException e) {} }
+				if ((numLinhasLidas % 400) == 0) { try { Thread.sleep(500L); } catch (InterruptedException e) {} }
 			}
 
 			leitorArqEntrada.close();
