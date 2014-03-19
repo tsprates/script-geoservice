@@ -38,37 +38,39 @@ public class ScriptConversor implements Runnable {
 	private FileInputStream configFile;
 	private Long inicio, fim;
 
-	// propriedades de configuração
+	// classe de propriedades de configuração
 	private Properties props = new Properties();
 
-	// delimeter
+	// delimeter - elemento que divide as colunas do csv
 	private String delimeter;
 	private String text_delimeter;
 
-	// nome coluna lat e lng para pesquisa na url geoservice
+	// coluna lat e lng para compor url da geoservice
 	private String inputfile_col_lat, inputfile_col_lng;
 	private String outputfile_cols;
 
 	private BufferedReader leitorArqEntrada;
 	private PrintStream escritorArqSaida;
 
-	// parse xml
+	// parseador de xml
 	private DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	private DocumentBuilder db;
 	private XPathFactory xpathFactory = XPathFactory.newInstance();
 
+	// Script
 	public static void main(String[] args) {
-		System.out.println(" *SCRIPT para conversão:");
+		System.out.println(" Projeto - Atlas Brasil");
+		System.out.println(" [SCRIPT] iniciando:");
 
 		if (args.length > 0) {
 			try {
 				new ScriptConversor(args[0]);
 			} catch (FileNotFoundException e) {
-				System.err.println(" [Error] - Necessário Arquivo de Config.");
+				System.err.println(" [Error] - Necessario arquivo de Config.");
 				mostraAjuda();
 			}
 		} else {
-			System.err.println(" [Error] - Necessário Arquivo de Config.");
+			System.err.println(" [Error] - Necessario arquivo de Config.");
 			mostraAjuda();
 		}
 	}
@@ -79,7 +81,7 @@ public class ScriptConversor implements Runnable {
 	 */
 	private static void mostraAjuda() {
 		System.out
-				.println(" Exemplo de arquivo de configuração:                    ");
+				.println(" Exemplo de arquivo de configuracao:                    ");
 		System.out
 				.println(" *config.properties                                     ");
 		System.out
@@ -117,7 +119,7 @@ public class ScriptConversor implements Runnable {
 			configFile = new FileInputStream(pathFileConfig);
 			props.load(configFile);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("[Erro] carregar de propriedades do arquivo de config.");
 		}
 
 		inputfile = new File(props.getProperty("inputfile"));
@@ -140,13 +142,14 @@ public class ScriptConversor implements Runnable {
 		if (inputfile.exists()) {
 			new Thread(this).start();
 		} else {
-			throw new RuntimeException("Arquivos inválidos.");
+			throw new RuntimeException("[Erro] Arquivos inválidos.");
 		}
 
+		// testa parseador de xml
 		try {
 			db = dbf.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("[Erro] leitor de xml.");
+			throw new RuntimeException("[Erro] Leitor de xml.");
 		}
 	}
 
@@ -156,9 +159,7 @@ public class ScriptConversor implements Runnable {
 			leitorArqEntrada = new BufferedReader(new FileReader(inputfile));
 			escritorArqSaida = new PrintStream(outputfile);
 
-			// linha que será registrado no arquivo de saida para formatação
 			StringBuilder linhaSaida = new StringBuilder();
-
 			String linhaAtual;
 
 			// colunas (propriedades) requeridas pelo cliente no arquivo de
@@ -172,12 +173,12 @@ public class ScriptConversor implements Runnable {
 			String respostaDoServidor;
 
 			String urlDoGeoService;
-			int numLinhasLidas = -1; // desconsidera linha de cabeçalho
+			int numLinhasLidas = 0; // desconsidera linha de cabeçalho
 
 			boolean jaExisteNomesDasColunas = false;
 			int indiceColunaLat, indiceColunaLng;
 
-			// marca tempo para ver tempo demorado no processo
+			// tempo demorado no processo
 			inicio = System.currentTimeMillis();
 
 			while ((linhaAtual = leitorArqEntrada.readLine()) != null) {
@@ -189,15 +190,14 @@ public class ScriptConversor implements Runnable {
 				// reseta linha de saida para novo registro
 				linhaSaida = new StringBuilder("");
 
-				// para descobrir cabeçalho contém os nomes das colunas
+				// para descobrir cabeçalho
 				if (jaExisteNomesDasColunas == false) {
-					// faz mapeamente de colunas do arquivo de entrada
-					// para vincular a uma posição da coluna
+					// faz mapeamento de colunas do arquivo de entrada
 					for (int i = 0; i < colunasDaLinhaAtual.length; i++) {
 						indiceColunas.put(colunasDaLinhaAtual[i], i);
 					}
 
-					// escreve cabeçalho arquivo de saída
+					// escreve cabeçalho arquivo de saída requerido para pesquisa
 					escritorArqSaida.println(outputfile_cols);
 
 					// sabe o nome das colunas do arquivo,
@@ -210,23 +210,21 @@ public class ScriptConversor implements Runnable {
 				// necessárias no arquivo de configurações
 				if (jaExisteNomesDasColunas == false) {
 					throw new RuntimeException(
-							"[Erro] Não foi possível identificar as colunas do arquivo.");
+							"[Erro] Nao foi possivel identificar as colunas do arquivo.");
 				}
 
 				if (indiceColunas.get(inputfile_col_lat) == null
 						|| indiceColunas.get(inputfile_col_lng) == null) {
 					throw new RuntimeException(
-							"[Erro] Erro ao especificar colunas de latitude e longitude do arquivo de configuração, "
+							"[Erro] Erro ao especificar colunas de latitude e longitude do arquivo de configuracao, "
 									+ "possivelmente problema em definer o 'delimeter'.");
 				}
 
-				// posicão das colunas: latitude e longitude no arquivo de
-				// entrada
+				// posicão das colunas: latitude e longitude no arquivo de entrada
 				indiceColunaLat = indiceColunas.get(inputfile_col_lat);
 				indiceColunaLng = indiceColunas.get(inputfile_col_lng);
 
-				// formata url de requisição do geoservice com a latitude e
-				// longitude da linha atual
+				//  url de requisição do geoservice com a latitude e longitude atual
 				urlDoGeoService = String.format(Locale.ENGLISH,
 						props.getProperty("geoservice"), 
 							"" + colunasDaLinhaAtual[indiceColunaLat], 
@@ -245,7 +243,7 @@ public class ScriptConversor implements Runnable {
 
 				// procura os campos pedidos
 				for (int i = 0; i < arrColunasConfig.length; i++) {
-					colunaProcurada = arrColunasConfig[i];
+					colunaProcurada = arrColunasConfig[i].trim();
 
 					// se existir no arquivo de entrada pegar valor
 					// senão buscar no geoservice
@@ -298,7 +296,7 @@ public class ScriptConversor implements Runnable {
 			escritorArqSaida.close();
 
 		} catch (IOException e) {
-			System.err.println("Arquivo não existe.");
+			System.err.println("Arquivo nao existe.");
 			e.printStackTrace();
 		}
 
@@ -308,10 +306,10 @@ public class ScriptConversor implements Runnable {
 	}
 
 	/**
-	 * A partir de uma url do geoservice ler o conteúdo xml.
+	 * Ler o conteúdo XML devolvido pela URL.
 	 * 
 	 * @param url
-	 *            Url do georservice.
+	 *            Url do geoservice.
 	 * @return
 	 * @throws MalformedURLException
 	 * @throws IOException
@@ -331,36 +329,23 @@ public class ScriptConversor implements Runnable {
 			}
 
 			br.close();
-			
 			return sb.toString();
-
 		} catch (IOException e) {
-//			throw new RuntimeException(e);
 			return "";
 		}
 
 	}
 
 	/**
-	 * Filtra no na string xml a tag procurada.
+	 * Filtra tag procurada no XML devolvido pelo geoservice.
 	 * 
 	 * @param xml
-	 *            String que representa uma xml de resposta de um webservice
+	 *            String que representa uma XML de resposta de um webservice
 	 * @param tag
-	 *            Tag que procura-se encontrar no xml.
+	 *            Tag que procura-se encontrar no XML.
 	 * @return Valor da tag encontrado.
 	 */
 	private String retornaTag(String xml, String tag) {
-		// Pattern p = Pattern.compile("<" + tag + ">(.*?)</" + tag + ">",
-		// Pattern.UNICODE_CHARACTER_CLASS);
-		// Matcher m = p.matcher(xml);
-		//
-		// if (m.find()) {
-		// return m.group(1);
-		// } else {
-		// return "";
-		// }
-
 		try {
 			Document document = db
 					.parse(new InputSource(new StringReader(xml)));
@@ -372,7 +357,7 @@ public class ScriptConversor implements Runnable {
 	}
 
 	/**
-	 * Formata para retirar o último delimiter utilizado pelo arquivo de csv de
+	 * Formata para retirar o último delimiter utilizado para o arquivo de
 	 * entrada.
 	 * 
 	 * @param s

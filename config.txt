@@ -21,5 +21,6 @@ inputfile_col_lng=long
 geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
 
 # Lista de colunas (separadas pelo valor do delimiter). Para pegar a coluna do arquivo de entrada, defina o nome da coluna. Caso queira valor de um geoservice utilizar XPath. Obs.: valores retornados pelo geoservice são navegados através de XPath. Ex: Resposta do servidor: '<response><a>something</a><b>another thing</b><response>' para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
-#
+#?
+
 outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
