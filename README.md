@@ -32,7 +32,7 @@ java -jar script.jar [config.properties]
 
 
 
-> Exemplo de um arquivo de configuração:
+Exemplo de um arquivo de configuração:
  ```
  inputfile=c:/users/username/desktop/qryUDH_BH.csv
  outputfile=c:/users/username/desktop/s.csv
