@@ -1,17 +1,16 @@
-script-geoservice
+Script-Geoservice
 =================
 
-#Arquivo de configuração necessário para rodar o script.
+## Arquivo de configuração necessário para rodar o script.
 
 
-## Uso:
-
-```shell
+> Uso:
+```
 java -jar script.jar [config.properties] 
 ```
 
 
-## Arquivo de Configuração:
+### Arquivo de Configuração:
 
 - Arquivos de entrada e saída. Obs.: para especificar o caminho do arquivo deve-se utilizar a barra invertida '/', evitar erro. Ex: **C:\users\[USUÁRIO]\desktop\centroide_ud_BH2.csv** deve ficar: **C:/users/[USUÁRIO]/desktop/centroide_ud_BH2.csv**, em Windows como em SO Unix/Linux.
  ``` inputfile=c:/users/username/desktop/qryUDH_BH.csv ``` 
@@ -33,9 +32,8 @@ java -jar script.jar [config.properties]
 
 
 
-### Exemplo de um arquivo de configuração:
-
- ``` 
+> Exemplo de um arquivo de configuração:
+ ```
  inputfile=c:/users/username/desktop/qryUDH_BH.csv
  outputfile=c:/users/username/desktop/s.csv
  delimiter=,
