@@ -30,6 +30,7 @@ geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=f
 # Caso queira valor de um geoservice utilizar XPath. 
 #
 # Obs.: valores retornados pelo geoservice são navegados através de XPath. 
-# Exemplo: Resposta do servidor: '<response><a>something</a><b>another thing</b><response>' para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
+# Exemplo: Resposta do servidor: '<response><a>something</a><b>another thing</b><response>' 
+#		para recuperar o valor dentro da tag 'a' dentro da tag 'response' use '/response/a'.
 
 outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long
