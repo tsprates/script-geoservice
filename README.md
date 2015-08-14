@@ -1,18 +1,33 @@
 Script-Geoservice
 =================
 
-### Arquivo de configuração necessário para rodar o script.
+### Exemplo de uso:
 
-
-Uso:
+*Obs.: É necessário especificar o local do arquivo de configuração [config.properties].
 ```
 java -jar script.jar [config.properties] 
 ```
 
 
-### Arquivo de Configuração:
+###Exemplo de um arquivo de configuração:
 
-- Arquivos de entrada e saída. Obs.: para especificar o caminho do arquivo deve-se utilizar a barra invertida '/', evitar erro. Exemplo em Windows: `C:\users\[USUÁRIO]\desktop\centroide_ud_BH2.csv` 
+ ```
+ inputfile=c:/users/username/desktop/qryUDH_BH.csv
+ outputfile=c:/users/username/desktop/s.csv
+ delimiter=,
+ text_delimiter=\"
+ inputfile_col_lat=lat
+ inputfile_col_lng=long
+ geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
+ outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long  
+ ``` 
+
+#### Explicando arquivo de configuração:
+
+- Arquivos de entrada e saída.
+
+*Obs.: para especificar o caminho do arquivo deve-se utilizar a barra invertida '/', evitar erro. Exemplo em Windows: `C:\users\[USUÁRIO]\desktop\centroide_ud_BH2.csv` 
+
  ```
 inputfile=c:/users/username/desktop/qryUDH_BH.csv 
 outputfile=c:/users/username/desktop/s.csv 
@@ -35,22 +50,9 @@ inputfile_col_lng=long
 geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false 
 ```
  
-- Lista de colunas (separadas por **delimiter**).
+- Lista de colunas (separadas por `delimiter`).
   ``` 
 outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long 
 ``` 
 
-
-
-###Exemplo de um arquivo de configuração:
- ```
- inputfile=c:/users/username/desktop/qryUDH_BH.csv
- outputfile=c:/users/username/desktop/s.csv
- delimiter=,
- text_delimiter=\"
- inputfile_col_lat=lat
- inputfile_col_lng=long
- geoservice=http://maps.googleapis.com/maps/api/geocode/xml?latlng=%s,%s&sensor=false
- outputfile_cols=UDH_ATLAS,/GeocodeResponse/result/address_component/long_name,/GeocodeResponse/result/geometry/location/lat,/GeocodeResponse/result/geometry/location/lng,lat,long  
- ``` 
 
